@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes app</title>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Pacifico&display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="./css styling/all.min.css">
+    <link rel="stylesheet" href="./css styling/bootstrap.min.css">
+    <link rel="stylesheet" href="./css styling/stylin.css">
+</head>
+
+<body>
+
+    <div class="container text-center">
+        <h1 class=" m-auto">BOOKMARKS</h1>
+        <hr>
+        <div class="d-flex justify-content-center zozo">
+            <h2 class="">
+                <i class="fa-solid fa-bookmark mt-3"></i>
+                Bookmark your favorite sites
+                <i class="fa-solid fa-bookmark mt-3"></i>
+            </h2>
+        </div>
+
+
+
+        <form class="row g-3 ">
+            <div class="col-lg-12 d-flex flex-column align-items-start ">
+                <label for="Site_Name" class="form-label">Site Name</label>
+                <input type="text" class="form-control " id="Site_Name" value=" " required oninput="validateInputs(document.getElementById('Site_Name'), document.getElementById('Site_URL'))">                <div class="valid-feedback d-flex flex-column align-items-start">
+             
+                </div>
+            </div>
+            <!-- ////////////////////////////////////////////////////////////// -->
+            <div class="col-lg-12 d-flex flex-column align-items-start">
+                <label for="Site_URL" class="form-label">Site URL</label>
+                <input value=" " type="text" class="form-control" id="Site_URL" aria-describedby="validationServer03Feedback" required oninput="validateInputs(document.getElementById('Site_Name'), document.getElementById('Site_URL'))">
+                <div id="validationServer03Feedback" class="invalid-feedback d-flex flex-column align-items-start">
+                 
+                </div>
+            </div>
+            <!--  ////////////////////////////////////////////////////////////// -->
+<div class="col-lg-12 d-flex flex-column align-items-start">
+    <label for="Search" class="form-label">Search a Website Name</label>
+    <input onkeyup="searchName(this.value)" value="" type="text" class="form-control " id="Search"
+        aria-describedby="validationServer03Feedback" required>
+
+</div>
+
+        </form>
+
+        <button onclick="addingNewSite()" class="btn btn-outline-danger w-50">SUBMIT</button>
+        <hr>
+
+        <div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">INDEX</th>
+                        <th scope="col">WEBSITE NAME</th>
+                        <th scope="col">SITE URL</th>
+                        <th scope="col">VISIT</th>
+                        <th scope="col">UPDATE</th>
+                        <th scope="col">DELETE</th>
+                    </tr>
+                </thead>
+
+
+                <tbody id="alDisplay">
+
+                    </tbody>
+                
+            </table>
+        </div>
+    </div>
+
+
+    <script src="./my js/bootstrap.bundle.min.js"></script>
+    <script src="./my js/myjs.js"></script>
+</body>
+
+</html>
+
+<!-- <tr>
+    <th scope="row">1</th>
+    <td>allSites[i].name</td>
+    <td>allSites[i].url</td>
+    <td> <button onclick="  " class="btn btn-outline-success ">VISIT</button></td>
+    <td> <button onclick=" updatingExistingSite() " class="btn btn-outline-primary ">UPDATE</button></td>
+    <td> <button onclick="  " class="btn btn-outline-danger "><i class="fa-solid fa-trash p-2"></i>DELETE</button></td>
+</tr> -->
