@@ -1,132 +1,99 @@
+// var loggingInReq = new XMLHttpRequest();
 
-// localStorage.getItem();
-// localStorage.setItem();
-// localStorage.removeItem();
-
-var editingIndex = -1;
+// loggingIn.open("get","")
+// loggingIn.send();
 
 
-var allSites = [];
-var websiteNameInput = document.querySelector('#Site_Name');
-var websiteUrlInput = document.querySelector('#Site_URL');
-// localStorage.getItem();     bs lw hya fadya awl mara a5osh,  a3ml condition eno no get
-// var regexName= /^[a-zA-Z]{3,}$/
-// var regexUrl= /^https:\/\/.+\.com$/
+// var signUpReq = new XMLHttpRequest();
+
+// signUpReq.open("post","")            //aked hnb3tlo hagat fl body
+// signUpReq.send();
+// var replacor = document.querySelector('.bg-dark.text-white.d-flex.align-items-center.justify-content-center.vh-100');
+var alldata = JSON.parse(localStorage.getItem('userData')) || [];
+// hna select ashan a3rf a5od  al input value
+var emailInput = document.querySelector('#email');
+var passwordInput = document.querySelector('#password');
+var nameInput = document.querySelector('#name');
 
 
-function validateInputs(nameInput, urlInput) {
-  const nameRegex = /^[a-zA-Z0-9 ]{3,}$/;
-  const urlRegex = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/.*)?$/;
 
-  // Validate inputs
-  const isNameValid = nameRegex.test(nameInput.value.trim());
-  const isUrlValid = urlRegex.test(urlInput.value.trim());
-
-  // Apply classes
-  nameInput.classList.toggle('is-valid', isNameValid);
-  nameInput.classList.toggle('is-invalid', !isNameValid);
-
-  urlInput.classList.toggle('is-valid', isUrlValid);
-  urlInput.classList.toggle('is-invalid', !isUrlValid);
-
-  return isNameValid && isUrlValid; // Return validation result
-}
+var logoutBtn = document.querySelector('#logout-btn');
+var signupBtn = document.querySelector('#signup-btn');
+var loginBtn = document.querySelector('#login-btn');
 
 
-function addingNewSite() {
-  var site = {
-      name: websiteNameInput.value,
-      url: websiteUrlInput.value
-  };
 
-  // Validate inputs
-  if (!validateInputs(websiteNameInput, websiteUrlInput)) {
-      alert('Please fix validation. Name cannot be less than 3 characters, and URL should start with https:// and end with .com.');
-      return false; // Prevent form submission
+var signupLink = document.querySelector('#sign-up-link');
+var loginLink = document.querySelector('#sign-in-link');
+
+
+//hy5rg 3l html bta3 al login 3ady
+// logoutBtn.addEventListener('click',function(){
+// replacor.innerHTML=`      <div class="bg-dark text-white d-flex align-items-center justify-content-center vh-100">
+//             <div class="container-sm p-4 bg-secondary rounded shadow-lg">
+//                 <h1 class="text-center mb-4">Smart Login System</h1>
+//                 <form>
+//                     <div class="mb-3">
+//                         <label for="email" class="form-label">Email</label>
+//                         <input type="email" class="form-control" id="email" placeholder="Enter your email">
+//                     </div>
+//                     <div class="mb-3">
+//                         <label for="password" class="form-label">Password</label>
+//                         <input type="password" class="form-control" id="password" placeholder="Enter your password">
+//                     </div>
+//                     <button type="button" id="login-btn" class="btn btn-outline-info w-100">Login</button>
+//                 </form>
+//                 <div class="text-center mt-3">
+//                     <p class="mb-0">Don't have an account? <a href="./signup.html" id="sign-up-link" class="text-warning">Sign
+//                             Up</a></p>
+//                 </div>
+//             </div>
+//         </div>`;
+// });
+
+//hya5od al data y5znha fl local storage w haywadyh 3la saf7t al login ashan y login  bs lw e5tar exsiting email msh hyrdo w hy2olo exsiting email
+function loginUser() {
+  
+
+  var email = emailInput.value.trim();
+  var password = passwordInput.value.trim();
+
+  // at2kd eno ktb al etnen
+  if (email === "" || password === "") {
+    alert("Please enter both email and password.");
+    return;
   }
 
-  if (editingIndex != -1) {
-      allSites[editingIndex] = site;
-      editingIndex = -1;
-  } else {
-      allSites.push(site);
-  }
 
-  displaySite();
-  clearForm();
-  validateInputs(websiteNameInput, websiteUrlInput);
-}
-
-
-function updatingExistingSite(idx){
-  editingIndex = idx;
-AutoFillingForm(idx);
-allSites[idx].name  =  websiteNameInput.value
-allSites[idx].url  =  websiteUrlInput.value
-
-
-}
-
-function AutoFillingForm(idx){
-  websiteNameInput.value  =   allSites[idx].name; 
-  websiteUrlInput.value  =  allSites[idx].url; 
-}
-
-function displaySite() {
-  var cartoona = '';
-  for (var i = 0; i < allSites.length; i++) {
-
-    cartoona += `
-
-
-            <tr>
-                <th scope="row">${i+1}</th>
-                <td>${allSites[i].name}</td>
-                <td>${allSites[i].url}</td>
-                <td> <button onclick=" window.open('${allSites[i].url}', '_blank') " class="btn btn-outline-success ">VISIT</button></td>
-                <td> <button onclick=" updatingExistingSite(${i}) " class="btn btn-outline-primary "><i class="fa-regular fa-pen-to-square p-2"></i>UPDATE</button></td>
-                <td> <button onclick="  deleteSite(${i})" class="btn btn-outline-danger "><i class="fa-solid fa-trash p-2">DELETE</button></td>
-            </tr>
-
-
-`
-  }
-  document.getElementById('alDisplay').innerHTML = cartoona;
-}
-
-function clearForm() {
-  websiteNameInput.value= "";
-  websiteUrlInput.value = '';
-
-
-};
-
-function deleteSite(idx) {
-  allSites.splice(idx, 1);
-  // localStorage.removeItem();
-  displaySite();
-};
-
-// var variable = document.getElementById('Search').value;
-var searchTerm = variable.value;
-function searchName(variable) {
-
-
-  var cartoona = "";
-  for (var i = 0; i < allSites.length; i++) {
-    if (allSites[i].name.toLowerCase().includes(variable.toLowerCase())) {
-      // console.log(allSites[i]);
-      cartoona = cartoona + `            <tr>
-                <th scope="row">${i+1}</th>
-                <td>${allSites[i].name}</td>
-                <td>${allSites[i].url}</td>
-                <td> <button onclick=" window.open('${allSites[i].url}', '_blank') " class="btn btn-outline-success ">VISIT</button></td>
-                <td> <button onclick=" updatingExistingSite(${i}) " class="btn btn-outline-primary "><i class="fa-regular fa-pen-to-square p-2"></i>UPDATE</button></td>
-                <td> <button onclick="  deleteSite(${i})" class="btn btn-outline-danger "><i class="fa-solid fa-trash p-2">DELETE</button></td>
-            </tr>`
+  var isUserFound = false;
+  for (var i = 0; i < alldata.length; i++) {
+    if (alldata[i].username === email && alldata[i].password === password) {
+      isUserFound = true;
+      break; 
     }
   }
-  document.getElementById('alDisplay').innerHTML = cartoona
+
+  if (isUserFound) {
+    localStorage.setItem('loggedInUserEmail', emailInput.value); 
+    alert("Login successfully!");
+    window.location.href = './logout.html';
+  } else {
+    alert("Invalid email or password. Please sign up if you don't have an account.");
+  }
 }
-// console.;log("wrtithe uploading a minin virus")
-//document get element by id(#dd)
+
+
+
+
+
+
+//hya5od al data y check enha  fl local storage lw ah => hyn2lo 3l HOME page     lw la => hytl3lo eh al 8lt aw
+loginBtn.addEventListener('click',function(){
+  loginUser();
+});
+
+
+//////////////////////////////////////////////////////////////////////////////////
+
+
+
